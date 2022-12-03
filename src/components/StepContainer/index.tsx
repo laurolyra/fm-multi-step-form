@@ -1,6 +1,7 @@
 import React from 'react';
+import { IStepContainerProps } from './iStepContainerProps';
 
-export const StepContainer = ({ number, step, subtitle }) => (
+export const StepContainer = ({ number, step, subtitle }: IStepContainerProps) => (
   <div className="flex items-center gap-4">
     <div
       className={`rounded-full ${
