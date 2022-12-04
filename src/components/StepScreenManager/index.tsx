@@ -4,6 +4,7 @@ import { FinishingUp } from '../steps/FinishingUp';
 import { PersonalInfo } from '../steps/PersonalInfo';
 import { PickAddons } from '../steps/PickAddons';
 import { SelectPlan } from '../steps/SelectPlan';
+import { SuccessSignUp } from '../steps/SuccessSignUp';
 
 export const StepScreenManager: React.FC<IStep> = ({ step }) => {
   const changeScreen = () => {
@@ -16,6 +17,8 @@ export const StepScreenManager: React.FC<IStep> = ({ step }) => {
         return <PickAddons />;
       case 3:
         return <FinishingUp />;
+      case 4:
+        return <SuccessSignUp />;
       default:
         return <p>not found</p>;
     }
