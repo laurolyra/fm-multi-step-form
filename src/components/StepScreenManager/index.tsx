@@ -1,13 +1,31 @@
 import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import { FormInfoContext } from '../../context/FormInfoContext';
 import { FinishingUp } from '../steps/FinishingUp';
 import { PersonalInfo } from '../steps/PersonalInfo';
 import { PickAddons } from '../steps/PickAddons';
 import { SelectPlan } from '../steps/SelectPlan';
 import { SuccessSignUp } from '../steps/SuccessSignUp';
+import { DevTool } from '@hookform/devtools';
 
 export const StepScreenManager = () => {
   const { step, setStep } = useContext(FormInfoContext);
+
+  const { handleSubmit, control } = useForm();
+
+  const onSubmit = () => console.log('submit!');
+
+  const handleStep = async () => {
+    // const stepValidation = {
+    //   0: ['name', 'email', 'phone'],
+    // }
+    // const isValid = await trigger(['name', 'email', 'phone']);
+    // console.log('isValid', isValid);
+    // if (isValid) {
+    //   setStep(step + 1);
+    // }
+    console.log('handle');
+  };
 
   const changeScreen = () => {
     switch (step) {
@@ -27,18 +45,27 @@ export const StepScreenManager = () => {
   };
 
   return (
-    <section className="flex flex-col justify-between col-span-8 min-h-[60vh] px-6">
-      {changeScreen()}
-      <div className="flex justify-between">
-        {step > 0 && step < 4 ? (
-          <button className={``} onClick={() => setStep(step - 1)}>Go Back</button>
-        ) : null}
-        {step <= 3 ? (
-          <button type="button" onClick={() => setStep(step + 1)}>
-            Next Step
-          </button>
-        ) : null}
-      </div>
-    </section>
+    <>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col justify-between col-span-8 h-[64vh] px-[4rem]"
+      >
+        {changeScreen()}
+        <div className="flex justify-between">
+          {step > 0 && step < 4 ? (
+            <button className={``} onClick={() => setStep(step - 1)}>
+              Go Back
+            </button>
+          ) : null}
+          {step < 3 ? (
+            <button type="button" onClick={handleStep}>
+              Next Step
+            </button>
+          ) : null}
+          {step === 3 ? <button type="submit">Confirm</button> : null}
+        </div>
+      </form>
+      <DevTool control={control} />
+    </>
   );
 };

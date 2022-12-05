@@ -7,7 +7,7 @@ type FormInfoProps = {
 type UserData = {
   name: string;
   email: string;
-  // phoneNumber: number;
+  phone: number;
 }
 
 interface IFormInfo {
