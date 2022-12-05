@@ -27,11 +27,11 @@ export const StepScreenManager = () => {
   };
 
   return (
-    <section className="flex flex-col border-solid border border-green-500 col-span-8">
+    <section className="flex flex-col justify-between col-span-8 min-h-[60vh] px-5">
       {changeScreen()}
-      <div>
+      <div className="flex justify-between">
         {step > 0 && step < 4 ? (
-          <button onClick={() => setStep(step - 1)}>Go Back</button>
+          <button className={``} onClick={() => setStep(step - 1)}>Go Back</button>
         ) : null}
         {step <= 3 ? (
           <button type="button" onClick={() => setStep(step + 1)}>
