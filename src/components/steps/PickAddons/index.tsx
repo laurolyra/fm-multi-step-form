@@ -19,9 +19,5 @@ export const PickAddons = () => (
         <p>Customizable profile</p>
       </div>
     </div>
-    <div>
-      <button>Go Back</button>
-      <button>Next Step</button>
-    </div>
   </section>
 );

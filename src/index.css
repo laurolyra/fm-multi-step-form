@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.debug {
+  border: 3px solid red;
+}
+
 @layer base {
   h1 {
     @apply text-2xl;

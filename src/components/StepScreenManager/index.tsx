@@ -1,12 +1,14 @@
-import React from 'react';
-import { IStep } from '../../interfaces/iStep';
+import React, { useContext } from 'react';
+import { FormInfoContext } from '../../context/FormInfoContext';
 import { FinishingUp } from '../steps/FinishingUp';
 import { PersonalInfo } from '../steps/PersonalInfo';
 import { PickAddons } from '../steps/PickAddons';
 import { SelectPlan } from '../steps/SelectPlan';
 import { SuccessSignUp } from '../steps/SuccessSignUp';
 
-export const StepScreenManager: React.FC<IStep> = ({ step }) => {
+export const StepScreenManager = () => {
+  const { step, setStep } = useContext(FormInfoContext);
+
   const changeScreen = () => {
     switch (step) {
       case 0:
@@ -27,6 +29,16 @@ export const StepScreenManager: React.FC<IStep> = ({ step }) => {
   return (
     <section className="flex flex-col border-solid border border-green-500 col-span-8">
       {changeScreen()}
+      <div>
+        {step > 0 && step < 4 ? (
+          <button onClick={() => setStep(step - 1)}>Go Back</button>
+        ) : null}
+        {step <= 3 ? (
+          <button type="button" onClick={() => setStep(step + 1)}>
+            Next Step
+          </button>
+        ) : null}
+      </div>
     </section>
   );
 };

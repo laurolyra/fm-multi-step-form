@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { FormInfoContext } from '../../../context/FormInfoContext';
 
-export const SelectPlan = () => (
-  <section className="container px-3">
-    <div>
-      <h1>Select your plan</h1>
-      <h4 className="text-gray-400">
-        you have the option of monthly or yearly billing
-      </h4>
-    </div>
-    <div className="flex justify-around">
+export const SelectPlan = () => {
+  const { step, setStep } = useContext(FormInfoContext);
+
+  return (
+    <section className="container px-3">
       <div>
-        <p>Arcade</p>
+        <h1>Select your plan</h1>
+        <h4 className="text-gray-400">
+          you have the option of monthly or yearly billing
+        </h4>
       </div>
-      <div>
-        <p>Advanced</p>
+      <div className="flex justify-around">
+        <div>
+          <p>Arcade</p>
+        </div>
+        <div>
+          <p>Advanced</p>
+        </div>
+        <div>
+          <p>Pro</p>
+        </div>
       </div>
-      <div>
-        <p>Pro</p>
-      </div>
-    </div>
-    {/* <label
+      {/* <label
       className="form-check-label inline-block text-gray-800"
       htmlFor="flexSwitchCheckDefault"
     >
@@ -31,13 +35,10 @@ export const SelectPlan = () => (
       role="switch"
       id="flexSwitchCheckDefault"
     /> */}
-    <div>
-      <p>Monthly</p>
-      <p>Yearly</p>
-    </div>
-    <div>
-      <button>Go Back</button>
-      <button>Next Step</button>
-    </div>
-  </section>
-);
+      <div>
+        <p>Monthly</p>
+        <p>Yearly</p>
+      </div>
+    </section>
+  );
+};

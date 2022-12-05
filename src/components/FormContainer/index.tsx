@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { StepScreenManager } from '../StepScreenManager';
 import { StepperBar } from '../StepperBar';
+import { FormInfoContext } from '../../context/FormInfoContext';
 
 export const FormContainer = () => {
-  const [step, setStep] = useState<number>(0);
+  const {step, setStep} = useContext(FormInfoContext);
   // const [formDados, setFormDados] = useState({
   //   name: 'name',
   //   address: 'address',
@@ -14,8 +15,8 @@ export const FormContainer = () => {
 
   return (
     <div className="w-full py-6 px-4 container bg-white grid grid-cols-12 gap-1 max-w-4xl">
-      <StepperBar step={step} />
-      <StepScreenManager step={step} />
+      <StepperBar />
+      <StepScreenManager />
       <button
         style={{ width: '20px', height: '20px', background: "aquamarine" }}
         onClick={() => setStep(step + 1)}

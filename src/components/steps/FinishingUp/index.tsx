@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const FinishingUp = () => (
   <section className="container px-3">
@@ -20,13 +20,9 @@ export const FinishingUp = () => (
         <p>price for each service</p>
       </div>
     </div>
-      <div>
-        <p>Total (per year/per month)</p>
-        <p>Price (per year/per month)</p>
-      </div>
     <div>
-      <button>Go Back</button>
-      <button>Next Step</button>
+      <p>Total (per year/per month)</p>
+      <p>Price (per year/per month)</p>
     </div>
   </section>
 );
