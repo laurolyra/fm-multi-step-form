@@ -27,7 +27,7 @@ export const StepScreenManager = () => {
   };
 
   return (
-    <section className="flex flex-col justify-between col-span-8 min-h-[60vh] px-5">
+    <section className="flex flex-col justify-between col-span-8 min-h-[60vh] px-6">
       {changeScreen()}
       <div className="flex justify-between">
         {step > 0 && step < 4 ? (

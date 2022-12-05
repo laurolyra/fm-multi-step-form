@@ -22,7 +22,7 @@ export const PersonalInfo = () => (
         <input type="text" id="email" className="custom-text-input" />
       </div>
       <div className="flex flex-col">
-        <div className='flex justify-between w-80'>
+        <div className='flex justify-between w-full'>
           <label htmlFor="phone" className="text-gray-600">
             Phone Number
           </label>

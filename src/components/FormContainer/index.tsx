@@ -14,7 +14,7 @@ export const FormContainer = () => {
   //   setFormDados({ ...formDados, [key]: value });
 
   return (
-    <div className="w-full py-6 px-4 container bg-white grid grid-cols-12 gap-1 max-w-4xl">
+    <div className="w-full py-6 px-4 container bg-white grid grid-cols-12 gap-1 max-w-4xl shadow-xl rounded-2xl">
       <StepperBar />
       <StepScreenManager />
       <button

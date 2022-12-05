@@ -7,7 +7,7 @@
 }
 
 .custom-text-input{
-  @apply border-2 border-gray-300 p-2 w-80 rounded-md;
+  @apply border-2 border-gray-300 p-2 w-full rounded-md;
 }
 
 @layer base {
