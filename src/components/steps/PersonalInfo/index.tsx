@@ -3,26 +3,23 @@ import { useFormContext } from 'react-hook-form';
 import { FormInfoContext } from '../../../context/FormInfoContext';
 
 export const PersonalInfo = () => {
-  const { user, step, setStep } = useContext(FormInfoContext);
+  const { user, setUser, step, setStep } = useContext(FormInfoContext);
   const {
     register,
     trigger,
-    setError,
+    getValues,
     formState: { errors },
   } = useFormContext();
 
   const handleTrigger = async () => {
+    const formValues = getValues();
     let isValid = false;
     isValid = await trigger(['name', 'email', 'phone']);
-    if (isValid) {
-      setStep(step + 1);
+    if (!isValid) {
       return;
     }
-    // TODO: check typescript error on line 45 (commented)
-    setError('name', {
-      type: 'manual',
-      message: 'Please provide a valid name',
-    });
+    setUser({ ...user, ...formValues });
+    return setStep(step + 1);
   };
 
   return (
@@ -39,7 +36,7 @@ export const PersonalInfo = () => {
             <label htmlFor="name" className="text-gray-600">
               <h5>Name</h5>
             </label>
-            {errors['name'] ? <p>{String(errors.name.message)}</p> : null}
+            {errors.name ? <p>{String(errors.name.message)}</p> : null}
           </div>
           <input
             type="text"
@@ -47,8 +44,11 @@ export const PersonalInfo = () => {
             className="custom-text-input"
             defaultValue={user.name}
             {...register('name', {
-              required: true,
-              pattern: /(([a-zA-Z]){2,})+/,
+              required: 'required field',
+              pattern: {
+                value: /(([a-zA-Z]){2,})+/,
+                message: 'please enter a valid name',
+              },
             })}
           />
           {/* Source of the "unknown" solution: https://github.com/react-hook-form/react-hook-form/issues/8653#issuecomment-1179460739 */}
@@ -63,8 +63,11 @@ export const PersonalInfo = () => {
             className="custom-text-input"
             // defaultValue={user.email}
             {...register('email', {
-              required: true,
-              pattern: /^[^._-]([\w\d._]+)@([a-zA-Z0-9]+).([a-zA-Z0-9]+)/,
+              required: 'required field',
+              pattern: {
+                value: /^[^._-]([\w\d._]+)@([a-zA-Z0-9]+).([a-zA-Z]+)/,
+                message: 'please enter a valid e-mail',
+              },
             })}
           />
         </div>

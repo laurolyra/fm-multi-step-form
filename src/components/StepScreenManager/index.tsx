@@ -14,7 +14,9 @@ export const StepScreenManager = () => {
     defaultValues: {
       name: user.name,
     },
+    mode: 'onTouched',
   });
+  //source: https://github.com/react-hook-form/react-hook-form/issues/266#issuecomment-698625512
   const onSubmit = (data: object) => console.log(data);
 
   const handleStep = async () => {
