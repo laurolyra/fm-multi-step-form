@@ -1,16 +1,27 @@
 import React, { useContext } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { FormInfoContext } from '../../../context/FormInfoContext';
 
 export const PersonalInfo = () => {
-  const { user } = useContext(FormInfoContext);
-  const { register } = useForm({
-    defaultValues: {
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-    },
-  });
+  const { user, step, setStep } = useContext(FormInfoContext);
+  const {
+    register,
+    trigger,
+    setError,
+    formState: { errors },
+  } = useFormContext();
+
+  const handleTrigger = async () => {
+    let isValid = false;
+    isValid = await trigger(['name', 'email', 'phone']);
+    if (isValid) {
+      console.log('trigger works!', isValid);
+      return;
+    }
+    // TODO: check typescript error on line 45 (commented)
+    setError('name', { type: 'manual', message: 'name error' });
+  };
+
   return (
     <section className="flex flex-col h-full">
       <div className="mb-5">
@@ -29,8 +40,9 @@ export const PersonalInfo = () => {
             id="name"
             className="custom-text-input"
             defaultValue={user.name}
-            {...register('name', { required: true, pattern: /[^a-zA-Z0-9]/ })}
+            {...register('name', { required: true, pattern: /[a-zA-Z]+/ })}
           />
+          {/* {errors ? <h2>{errors.name.message}</h2> : null} */}
         </div>
         <div className="flex flex-col">
           <label htmlFor="email" className="text-gray-600">
@@ -43,7 +55,7 @@ export const PersonalInfo = () => {
             defaultValue={user.email}
             {...register('email', {
               required: true,
-              pattern: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i,
+              pattern: /^[^._-]([\w\d._]+)@([a-zA-Z0-9]+).([a-zA-Z0-9]+)/,
             })}
           />
         </div>
@@ -61,11 +73,15 @@ export const PersonalInfo = () => {
             defaultValue={user.phone}
             {...register('phone', {
               required: true,
-              pattern: /^(\+|00)[1-9][0-9 \-().]{7,32}$/,
+              pattern: /^(?:[()\s#-]*\d){10,11}$/,
             })}
           />
         </div>
       </div>
+      <button type="button" onClick={handleTrigger}>
+        {' '}
+        Next_Component
+      </button>
     </section>
   );
 };

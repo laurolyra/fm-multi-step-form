@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { FormInfoContext } from '../../context/FormInfoContext';
 import { FinishingUp } from '../steps/FinishingUp';
 import { PersonalInfo } from '../steps/PersonalInfo';
@@ -11,9 +11,8 @@ import { DevTool } from '@hookform/devtools';
 export const StepScreenManager = () => {
   const { step, setStep } = useContext(FormInfoContext);
 
-  const { handleSubmit, control } = useForm();
-
-  const onSubmit = () => console.log('submit!');
+  const methods = useForm();
+  const onSubmit = (data: object) => console.log(data);
 
   const handleStep = async () => {
     // const stepValidation = {
@@ -22,7 +21,7 @@ export const StepScreenManager = () => {
     // const isValid = await trigger(['name', 'email', 'phone']);
     // console.log('isValid', isValid);
     // if (isValid) {
-    //   setStep(step + 1);
+    setStep(step + 1);
     // }
     console.log('handle');
   };
@@ -45,9 +44,9 @@ export const StepScreenManager = () => {
   };
 
   return (
-    <>
+    <FormProvider {...methods}>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={methods.handleSubmit(onSubmit)}
         className="flex flex-col justify-between col-span-8 h-[64vh] px-[4rem]"
       >
         {changeScreen()}
@@ -65,7 +64,7 @@ export const StepScreenManager = () => {
           {step === 3 ? <button type="submit">Confirm</button> : null}
         </div>
       </form>
-      <DevTool control={control} />
-    </>
+      <DevTool control={methods.control} />
+    </FormProvider>
   );
 };
