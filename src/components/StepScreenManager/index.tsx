@@ -9,9 +9,12 @@ import { SuccessSignUp } from '../steps/SuccessSignUp';
 import { DevTool } from '@hookform/devtools';
 
 export const StepScreenManager = () => {
-  const { step, setStep } = useContext(FormInfoContext);
-
-  const methods = useForm();
+  const { step, user, setStep } = useContext(FormInfoContext);
+  const methods = useForm({
+    defaultValues: {
+      name: user.name,
+    },
+  });
   const onSubmit = (data: object) => console.log(data);
 
   const handleStep = async () => {

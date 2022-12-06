@@ -15,11 +15,14 @@ export const PersonalInfo = () => {
     let isValid = false;
     isValid = await trigger(['name', 'email', 'phone']);
     if (isValid) {
-      console.log('trigger works!', isValid);
+      setStep(step + 1);
       return;
     }
     // TODO: check typescript error on line 45 (commented)
-    setError('name', { type: 'manual', message: 'name error' });
+    setError('name', {
+      type: 'manual',
+      message: 'Please provide a valid name',
+    });
   };
 
   return (
@@ -32,17 +35,23 @@ export const PersonalInfo = () => {
       </div>
       <div className="flex flex-col h-60 justify-between">
         <div className="flex flex-col">
-          <label htmlFor="name" className="text-gray-600">
-            Name
-          </label>
+          <div className="flex justify-between w-full">
+            <label htmlFor="name" className="text-gray-600">
+              <h5>Name</h5>
+            </label>
+            {errors['name'] ? <p>{String(errors.name.message)}</p> : null}
+          </div>
           <input
             type="text"
             id="name"
             className="custom-text-input"
             defaultValue={user.name}
-            {...register('name', { required: true, pattern: /[a-zA-Z]+/ })}
+            {...register('name', {
+              required: true,
+              pattern: /(([a-zA-Z]){2,})+/,
+            })}
           />
-          {/* {errors ? <h2>{errors.name.message}</h2> : null} */}
+          {/* Source of the "unknown" solution: https://github.com/react-hook-form/react-hook-form/issues/8653#issuecomment-1179460739 */}
         </div>
         <div className="flex flex-col">
           <label htmlFor="email" className="text-gray-600">
@@ -52,7 +61,7 @@ export const PersonalInfo = () => {
             type="text"
             id="email"
             className="custom-text-input"
-            defaultValue={user.email}
+            // defaultValue={user.email}
             {...register('email', {
               required: true,
               pattern: /^[^._-]([\w\d._]+)@([a-zA-Z0-9]+).([a-zA-Z0-9]+)/,
@@ -70,7 +79,7 @@ export const PersonalInfo = () => {
             type="text"
             id="phone"
             className="custom-text-input"
-            defaultValue={user.phone}
+            // defaultValue={user.phone}
             {...register('phone', {
               required: true,
               pattern: /^(?:[()\s#-]*\d){10,11}$/,

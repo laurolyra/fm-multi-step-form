@@ -8,7 +8,7 @@ type UserData = {
   name: string;
   email: string;
   phone: number;
-}
+};
 
 interface IFormInfo {
   step: number;
